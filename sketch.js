@@ -6,6 +6,7 @@ var boundry1,boundry2
 var fireballImg;
 var fireballGroup
 var arrowGroup
+var archerLives=3
 function preload(){
   dragonImg=loadImage("assets/Dragon.png")
   skyImg=loadImage("assets/Sky.jpg")
@@ -37,7 +38,7 @@ function setup() {
 }
 
 function draw() {
-  console.log(mouseX,mouseY);
+  //console.log(mouseX,mouseY);
   background(180);
   dragon.bounceOff(boundry1);
   dragon.bounceOff(boundry2);
@@ -62,6 +63,17 @@ function draw() {
   }
   spawnFireballs()
   drawSprites()
+  if(fireballGroup.isTouching(archer)) {
+    fireballGroup.destroyEach()
+    archer.scale-=0.25
+    archerLives=archerLives-1
+    console.log(archerLives)
+  
+  }
+  if(archerLives===0){
+    archer.destroy()
+    text("Game Over",width/2,height/2)
+  }
     }
   function spawnFireballs() {
     if(frameCount%80==0) {
@@ -71,9 +83,11 @@ function draw() {
       fireball.scale=0.3
       fireballGroup.add(fireball)
     }
+
   }
   
   
    
      
+   
    
